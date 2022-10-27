@@ -35,37 +35,27 @@ app.post("/newProduct", (req, res) => {
     res.status(201).send({ products });
   }
 );
+  
+  // //? Crear endpoint para poder actualizar un producto
+  app.put("/id/:id", (req,res) =>{
+    const found = products.some(items => items.id == req.params.id)//para saber si existe lo que busco
+    if(found){
+    products.forEach(items => {
+      if(items.id == req.params.id){
+        items.nombre = req.body.nombre ? req.body.nombre: items.nombre,
+        items.precio = req.body.precio ? req.body.precio : items.precio
+        res.send(items) 
+      }
+    })
+  }else{
+    res.status(404).send({msg:`Product with id ${req.params.id} not found`})
+}
+  })
+  
+  
+  
+  
 
-// //? Crear endpoint para poder actualizar un producto
-// app.put("/id/:id",(req,res)=>{
-//   const found = products.some(product => product.id == req.params.id)
-//   if(found){
-//       products.forEach(product=>{
-//           if(product.id == req.params.id){
-//               product.nombre = req.body.nombre ? req.body.nombre: product.nombre,
-//               product.precio = req.body.precio ? req.body.precio: product.precio
-//               res.send(product)
-//           }
-//       })
-//   }else{
-//       res.status(404).send({msg:`Nombre with id ${req.params.id} not found`})
-//   }
-// })
-
-// app.put("/id/:id", (req, res) => {
-//   const found = products.some((products) => items.id == req.params.id);
-//   if (found) {
-//     items.forEach((items) => {
-//       if (items.id == req.params.id) {
-//         (items.nombre = req.body.nombre ? req.body.nombre : items.name),
-//           (items.precio = req.body.precio ? req.body.precio : items.precio);
-//         res.send(items);
-//       }
-//     });
-//   } else {
-//     res.status(404).send({ msg: `Nombre with id ${req.params.id} not found` });
-//   }
-// });
 
 
 
